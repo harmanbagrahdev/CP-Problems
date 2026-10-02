@@ -40,6 +40,6 @@ int main() {
     int n, k;
     cin >> n >> k;
 
-    cout << maxMoney() << endl;
+    cout << maxMoney(n, k) << endl;
   }
 }
