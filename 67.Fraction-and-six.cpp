@@ -1,52 +1,26 @@
-#include <iostream>
-#include <string>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-void solve() {
-    int n, m;
-    cin >> n >> m;
-    
-    string p, q;
-    cin >> p >> q;
-
-    // Rule 1: The remaining numerator must have exactly 3 characters ("six")
-    if (n - m != 3) {
-        cout << "No\n";
-        return;
-    }
-
-    // Track relative counts for only 's', 'i', and 'x'
-    int diff_s = 0, diff_i = 0, diff_x = 0;
-
-    for (char c : p) {
-        if (c == 's') diff_s++;
-        else if (c == 'i') diff_i++;
-        else if (c == 'x') diff_x++;
-    }
-
-    for (char c : q) {
-        if (c == 's') diff_s--;
-        else if (c == 'i') diff_i--;
-        else if (c == 'x') diff_x--;
-    }
-
-    // Rule 2: There must be exactly 1 extra 's', 'i', and 'x' remaining
-    if (diff_s == 1 && diff_i == 1 && diff_x == 1) {
-        cout << "Yes\n";
-    } else {
-        cout << "No\n";
-    }
-}
-
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
+    int t; cin >> t;
 
-  int t;
-  cin >> t;
-  
-  while (t--) {
-    solve();
-  }
+    while (t--) {
+        int n, m;
+        string p, q;
+        cin >> n >> m >> p >> q;
+
+        int d[26] = {};
+        for(char c : p) d[c - 'a']++;
+        for(char c : q) d[c - 'a']--;
+        
+        bool ok = true;
+        
+        for(int i = 0; i < 26; i++) {
+            char c = 'a' + i;
+            int need = (c == 's' || c == 'i' || c == 'x') ? 1 : 0;
+            if (d[i] != need) ok = false;
+        }
+
+        cout << (ok ? "YES" : "NO") << "\n";
+    }
 }
